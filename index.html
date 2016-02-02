@@ -1,19 +1,140 @@
 
-<a href="v2plus://v2phone.uri.activity"><H1>StartAPP</H1></a><p>
-  
-<a href="v2plus://v2phone.uri.activity?uri=v2plus://v2phone.uri.test"><H1>StartAPP And Return APP</H1></a><p><p>
+<form name="V2URI" method="post">
+	
+Username: <input type="text" name="username"   value="66003" size="30%" style="font-size:24;height:60px">  <br> <br>
 
-<a href="v2plus://v2phone.uri.activity?register=66005;3636303035;10.66.200.10"><H1>Register !!</H1></a><p><p>
+Password: <input type="text" name="password"   value="66003" size="30%" style="font-size:24;height:60px">  <br> <br>
 
-<a href="v2plus://v2phone.uri.activity?register=0"><H1>注销当前账号</H1></a><p><p>
-  
-<a href="v2plus://v2phone.uri.activity?register=0&uri=v2plus://v2phone.uri.test"><H1>注销当前账号 并返回</H1></a><p><p>  
-  
-<a href="v2plus://v2phone.uri.activity?call=66003&uri=v2plus://v2phone.uri.test"><H1>Only Call 66003</H1></a><p><p>  
-  
-密码要用ASCII 转义！！！！！！
-<a href="v2plus://v2phone.uri.activity?register=66005;3636303035;10.66.200.10&call=66003&uri=v2plus://v2phone.uri.test"><H1>register and call</H1></a><p>
+UcServer: <input type="text" name="ucserver"   value="10.66.200.10" size="30%" style="font-size:24;height:60px">  <br> <br>
 
+
+Call Number:<input type="text" name="call" value="66005" size="30%" style="font-size:24;height:60px">  <br> <br>
+
+
+Video Call:<input type="radio" name="CallType" value="Video" checked="checked"><br><br>
+
+Audio Call:<input type="radio" name="CallType" value="Audio" ><br><br>
+
+
+URI:       <input type="text" name="uri" value="teamplus://test.test.test" size="30%" style="font-size:24;height:60px">  <br> <br>
+
+UnregisterAfterCall Yes: <input type="radio" name="unregisteraftercall" value="Yes" >                  <br><br>
+UnregisterAfterCall No:  <input type="radio" name="unregisteraftercall" value="No" checked="checked">  <br><br>
+
+AutoAnswer Yes:          <input type="radio" name="AutoAnswer" value="Yes" >                  <br><br>
+AutoAnswer No:           <input type="radio" name="AutoAnswer" value="No" checked="checked">  <br><br>
+
+AnswerType Video:        <input type="radio" name="AnswerType" value="Yes" checked="checked"> <br><br>
+AnswerType Audio:        <input type="radio" name="AnswerType" value="No">                    <br><br>
+
+
+
+<!--YOUR DATA AREA-->
+<input type="button" value="Make URI" onclick="V2GetURI()" size="50%" style="font-size:24;height:60px"><br><br>
+
+<input type="text" name="v2uri"   value="v2uri" size="100%" style="font-size:23;height:60px"> 
+
+</form>
+
+
+
+</center>
+
+
+<script type="text/javascript">
+	
+function URLEncode(s1){
+    //var s1 = document.URI.src.value;
+    var s2 = encodeURIComponent(s1);
+    //document.URI.dst.value = s2;
+    return s2;
+}
+ 
+function URLDecode(s1){
+    //var s1 = document.URI.src.value;
+    var s2 = decodeURIComponent(s1);
+    //document.URI.dst.value = s2;
+    return s2;
+}
+
+function V2GetURI(){
+	var base = "v2plus://v2phone.uri.activity/?";
+	var b = 0;
+	
+	var account = document.V2URI.username.value; //注册或者反注册信息
+	if(account != ""){ 
+		b = 1;
+		if(account == '0'){
+			base += "register=0"; //反注册
+		}else{
+			base += "register="; //注册信息
+			var password = document.V2URI.password.value;
+			
+			var ucserver = document.V2URI.ucserver.value;
+			base += account;
+			
+			base += ';';
+			base += URLEncode(password);
+			base += ';';
+			base += ucserver;
+		}
+	}
+	
+	var callnumber = document.V2URI.call.value;//本地呼叫号码
+	if(callnumber != ""){
+		if(b == 1){
+			base += '&';
+		}
+		b = 1;
+		base += "call=";
+		base += callnumber;
+		
+		var ctype = document.V2URI.CallType.value;
+		
+		if(document.V2URI.CallType[0].checked){
+			//视频拨号
+			base += ";1";
+		}
+	}
+	
+	var localuri = document.V2URI.uri.value; //本地APP的URI地址，通话结束后自动返回
+	if(localuri != ""){
+		if(b == 1){
+			base += '&';
+		}
+		b = 1;
+		base += "uri=";
+		base += localuri;
+	}
+	
+
+	if(document.V2URI.AutoAnswer[0].checked){ //  自动接听
+		if(b == 1){
+			base += '&';
+		}
+		b = 1;
+		base += "autoanswer=1";
+		if(document.V2URI.AnswerType[0].checked){ //视频自动接听
+			base += ";1";
+		}
+	}
+	
+	if(document.V2URI.unregisteraftercall[0].checked){ //  自动接听
+		if(b == 1){
+			base += '&';
+		}
+		b = 1;
+		base += "unregisteraftercall=1";
+	}
+	
+		document.write("<a href = \"" + base + "\">" + base + "</a>");
+	
+	document.write(base);
+	//document.V2URI.v2uri.value = base;
+	return base;
+}
+
+</script>
 
 
 
