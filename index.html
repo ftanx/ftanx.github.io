@@ -129,8 +129,12 @@ function V2GetURI(){
 	
 		document.write("<a href = \"" + base + "\">" + base + "</a>");
 	
-	document.write(base);
-	//document.V2URI.v2uri.value = base;
+	//document.write(base);
+	document.V2URI.v2uri.value = base;
+	
+	// var str="要写的字符串";
+ 	var Div=document.getElementById("div");
+ 	Div.insertAdjacentHTML("beforeEnd",base);
 	return base;
 }
 
