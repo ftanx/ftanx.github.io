@@ -1,9 +1,9 @@
 
 <form name="V2URI" method="post">
 	
-Username: <input type="text" name="username"   value="66003" size="30%" style="font-size:24;height:60px">  <br> <br>
+Username: <input type="text" name="username"   value="66009" size="30%" style="font-size:24;height:60px">  <br> <br>
 
-Password: <input type="text" name="password"   value="66003" size="30%" style="font-size:24;height:60px">  <br> <br>
+Password: <input type="text" name="password"   value="66009" size="30%" style="font-size:24;height:60px">  <br> <br>
 
 UcServer: <input type="text" name="ucserver"   value="10.66.200.10" size="30%" style="font-size:24;height:60px">  <br> <br>
 
@@ -31,6 +31,7 @@ AnswerType Audio:        <input type="radio" name="AnswerType" value="No">      
 
 <!--YOUR DATA AREA-->
 <input type="button" value="Make URI" onclick="V2GetURI()" size="50%" style="font-size:24;height:60px"><br><br>
+<input type="button" value="Call URI" onclick="V2GetURI2()" size="50%" style="font-size:24;height:60px"><br><br>
 
 <input type="text" name="v2uri"   value="v2uri" size="100%" style="font-size:23;height:60px"> 
 
@@ -126,18 +127,13 @@ function V2GetURI(){
 		b = 1;
 		base += "unregisteraftercall=1";
 	}
-	
-		document.write("<a href = \"" + base + "\">" + base + "</a>");
-	
-	//document.write(base);
 	document.V2URI.v2uri.value = base;
-	
-	var layer=document.createElement("div");
-	 var txt=document.createTextNode(base);
-    	layer.setAttribute("id","WndName");
-	 layer.appendChild(txt);
-	  document.body.appendChild(layer);
 	return base;
+}
+
+function V2GetURI2(){
+	var str = V2GetURI();
+	document.write("<a href=\"" + str + "\">" + str + "</a>");
 }
 
 </script>
